@@ -1,0 +1,36 @@
+# Core Data & ML
+pandas>=1.4
+numpy>=1.22
+scipy>=1.8
+scikit-learn>=1.0
+statsmodels>=0.14
+
+# NLP / Transformers
+transformers>=4.30
+torch>=2.0
+datasets>=2.10
+vaderSentiment>=3.3.2
+feedparser>=6.0
+
+# Time Series & Decomposition
+pydmd>=0.4.1
+arch>=5.0
+
+# Fairness
+aif360>=0.5.0
+
+# GDELT & News
+gdelt>=0.1.13
+google-cloud-bigquery>=3.0       # Optional: for BigQuery GDELT method
+pandas-gbq>=0.19                  # Optional: for BigQuery method
+
+# Visualization
+matplotlib>=3.5
+seaborn>=0.12
+plotly>=5.10
+
+# Utilities
+tqdm>=4.60
+python-dateutil>=2.8
+openpyxl>=3.0
+xlrd>=2.0
