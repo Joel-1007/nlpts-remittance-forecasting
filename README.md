@@ -5,12 +5,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://www.python.org/)
 [![Platform: Kaggle](https://img.shields.io/badge/Platform-Kaggle-20BEFF?logo=kaggle)](https://www.kaggle.com/)
-[![Journal: IEEE TII](https://img.shields.io/badge/Journal-IEEE%20TII-green)](https://ieee-ies.org/index.php/tii)
+[![Journal: Financial Innovation](https://img.shields.io/badge/Journal-Financial%20Innovation-brightgreen)](https://jfin-swufe.springeropen.com/)
 [![Models: SARIMA · XGBoost · GARCH · MLP](https://img.shields.io/badge/Models-SARIMA%20·%20XGBoost%20·%20GARCH%20·%20MLP-orange)](src/)
 
-**Q1 Journal Publication Standard** — Forecasting India's inward remittance flows using multilingual NLP sentiment signals from GDELT, econometric decomposition, and a GARCH-Gated deep learning architecture.
+**Q1 Springer Open Access** — Forecasting India's inward remittance flows using multilingual NLP sentiment signals from GDELT, econometric decomposition, and a GARCH-Gated deep learning architecture.
 
-*Submitted to / under review at: IEEE Transactions on Industrial Informatics (TII)*
+*Under review at: Financial Innovation — Springer Open Access*
 
 </div>
 
