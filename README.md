@@ -128,55 +128,63 @@ The pipeline evaluates combinations of:
 
 ## 📊 Figures Gallery
 
-### Fig 1 — Quarterly News Article Coverage by Language (GDELT Heatmap)
-> Article volume heatmap across 8 language streams, 2017–2025. Malayalam and English dominate GCC-corridor coverage. Collected via GDELT GKG + Google News RSS, aligned quarterly with the EPU index.
-
-![News Coverage Heatmap](results/figures/figure1_quarterly_article_heatmap.png)
+> All figures are extracted directly from the **FA_Manuscript-13** submission to *Financial Innovation — Springer Open Access*.
 
 ---
 
-### Fig 2 — SARIMA Baseline Forecast
-> `SARIMA(0,1,2)×(0,0,0,4)` out-of-sample forecast vs actuals across 32 quarters (2018Q1–2025Q4). Consistent under-prediction post-2020 due to the **2.38× distribution shift** — mean inflows rose from $11,046M (train) to $26,273M (test). MAPE = 17.03%.
+### Fig 1 — Longitudinal Overview: India Remittances, EPU & Sentiment (2000–2025)
+> Four-panel overview: **(a)** Quarterly inward remittance flows (train=72Q / test=32Q); **(b)** India EPU Index monthly 2003–2025 with GFC, Demonetisation, and COVID-19 regime bands; **(c)** mBERT quarterly sentiment distribution 2017–2025; **(d)** YoY growth rate with post-COVID surge annotation. Establishes the structural regime-shift motivation for the GARCH-gating approach.
 
-![SARIMA Forecast](results/figures/forecast_sarima.png)
-
----
-
-### Fig 3 — Auto-ARIMA Baseline Forecast
-> Auto-selected ARIMA specification. MAPE = 28.07%, confirming that automatic lag selection alone cannot handle persistent structural regime shifts in remittance series.
-
-![Auto-ARIMA Forecast](results/figures/forecast_auto_arima.png)
+![Fig 1 — Longitudinal Overview](results/figures/manuscript/fig1_remittance_timeseries_overview.png)
 
 ---
 
-### Fig 4 — Prophet Baseline Forecast
-> Facebook Prophet baseline. MAPE = 37.34%, failing to capture the post-COVID structural upshift driven by increased diaspora income in GCC economies and COVID-19 welfare redistribution dynamics.
+### Fig 2 — mBERT Sentiment-Remittance Lead-Lag Cross-Correlation
+> **(a)** Pearson r at lags 0–4 (annual aggregation, 2009Q1–2024Q1) — all lags significant p < 0.05. **(b)** Lag table: **Optimal Lag 2** achieves r = 0.637, p = 0.0143, Spearman ρ = 0.455. Demonstrates a statistically validated **two-quarter anticipatory signal** in multilingual news sentiment ahead of observed remittance deviations.
 
-![Prophet Forecast](results/figures/forecast_prophet.png)
-
----
-
-### Fig 5 — Ensemble Forecast (SARIMA + Sentiment Blend)
-> Weighted ensemble blending SARIMA and sentiment-augmented ML predictions (DL+C7+C8 thirds). MAPE = 7.87%, demonstrating additive value of each modeling stage.
-
-![Ensemble Forecast](results/figures/forecast_ensemble.png)
+![Fig 2 — Sentiment Lead-Lag Analysis](results/figures/manuscript/fig2_cross_correlation_sentiment_lag.png)
 
 ---
 
-### Fig 6 — Best Model Comparison: GARCH-Gated MLP vs Diff XGB vs SARIMA Baseline
-> Side-by-side comparison of the best models against the SARIMA baseline across the full 32-quarter OOS test window. The GARCH-Gated MLP tightly maps volatile spikes — including the 2021 "pent-up remittance" recovery effect — that purely structural models fail to capture. RMSE = 2,124 USD M, MAPE = 6.76%.
+### Fig 3 — mBERT Multilingual Sentiment Analysis: Quarterly Aggregated Remittance News
+> **(a)** Quarterly sentiment distribution (Positive / Neutral / Negative) with article volume overlay, 2017–2025; **(b)** Net sentiment score with 3Q rolling mean and regime-change markers (Demonetisation, GST, COVID, Ukraine War); **(c)** Sentiment mean score vs inward remittance flows in the test period (2018–2025), r = −0.722 (p = 0.0000). Validates the NLP pipeline as a counter-cyclical leading indicator.
 
-![Forecast Comparison](results/figures/cell7_forecast_comparison.png)
+![Fig 3 — mBERT Sentiment Analysis](results/figures/manuscript/fig4_garch_gated_architecture.png)
 
 ---
 
-### Fig 7 — SARIMA Diagnostic Plots
-> Residual analysis for SARIMA in-sample fit: standardised residuals, histogram, Q-Q plot, and ACF/PACF.  
-> Ljung-Box in-sample: p = 0.864 (lag 4), p = 0.975 (lag 8), p = 0.988 (lag 12) — white noise ✅  
-> Out-of-sample residuals exhibit significant autocorrelation, motivating Phases 2–4 correction stages.  
-> ARCH-LM test (lag 4): p = 0.0008 — conditional heteroscedasticity confirmed → GARCH(1,1) gating required.
+### Fig 4 — Multi-Model Forecast Comparison: India Inward Remittances (2018–2025)
+> Full 104-quarter series (training 2000–2017 in blue; test 2018–2025 in black). GARCH-Gated DL (pink) achieves **RMSE = $2,124M, MAPE = 6.76%, R² = 0.864** — a **67.0% RMSE reduction** over SARIMA (orange, $6,429M). 80% and 95% prediction intervals shown. COVID-19 pandemic band annotated. Competing models: DL+C7+C8 Ensemble ($2,347M), Cell7 Diff_XGB ($2,783M), Cell8 GBM_GARCH ($2,827M).
 
-![SARIMA Diagnostics](results/figures/sarima_diagnostics.png)
+![Fig 4 — Multi-Model Forecast Comparison](results/figures/manuscript/fig8_confidence_fan_chart.png)
+
+---
+
+### Fig 5 — SARIMA Grid Search: AIC/BIC Rankings & Residual Diagnostics
+> Feature importance bar chart and pie chart for the Phase 8 GBM model (53 total features, 36 non-zero). Top contributors: **EPU_Index_std8** (SHAP 0.095), **crisis_economic** (0.084), **crisis_disaster** (0.081). Feature category contribution: Sentiment/Crisis 47.9%, EPU 30.4%, Seasonal 15.4%, GARCH 6.3%. Validates the multi-modal feature engineering strategy.
+
+![Fig 5 — Feature Importance](results/figures/manuscript/fig5_sarima_table.png)
+
+---
+
+### Fig 6 — Full Pipeline Model Comparison Heatmap & RMSE Rankings
+> **(a)** Normalized performance heatmap (RMSE / MAPE / R²) across all 13 pipeline models — GARCH_Gated tops all metrics. **(b)** RMSE bar chart from Cell 6 baselines → Cell 7 → Cell 8 → Cell 9 DL: GARCH_Gated ($2,124M) achieves **↓67.0% vs SARIMA** ($6,429M). Color-coded by pipeline stage.
+
+![Fig 6 — Model Comparison Heatmap](results/figures/manuscript/fig6_model_performance_comparison.png)
+
+---
+
+### Fig 7 — Actual vs Predicted Scatter Plots: All Pipeline Models (Test Set: 32 Quarters)
+> Six-panel scatter grid (predicted vs actual, USD M) with residual colour scale and OLS fit line for each model tier. **GARCH_Gated** (top-left): RMSE = $2,124M, R² = 0.864 — tightest cluster around the 1:1 diagonal. SARIMA (centre-bottom): R² = −0.241, massive residuals confirm distributional mismatch. Provides per-model residual decomposition at a glance.
+
+![Fig 7 — Actual vs Predicted](results/figures/manuscript/fig7_actual_vs_predicted.png)
+
+---
+
+### Fig 8 — GARCH-Gated Dual-Stream Architecture: Full Data Flow
+> Complete architecture diagram: **(Left)** IGARCH pipeline — ARCH-LM test (p=1.57×10⁻⁸) → GARCH(1,1) rolling refit (expanding window T=32) → 5 GARCH volatility features embedded in x_t ∈ ℝ⁵³. **(Centre)** Dual-stream MLP — Feature stream (Dense 16→8) ⊕ Control stream (Dense 8, σ-gate). **(Right)** Forward pass equations and quarterly disaggregation logic. Training config: Adam lr=5×10⁻⁴, MSE loss, ≤1000 epochs (patience=80), L2(λ=0.02) all layers.
+
+![Fig 8 — GARCH-Gated Architecture](results/figures/manuscript/fig3_pipeline_architecture.png)
 
 ---
 
@@ -263,14 +271,16 @@ nlpts-remittance-forecasting/
 │   └── utils/                                # Helper/utility scripts
 │
 ├── results/
-│   └── figures/                              # All manuscript figures (7 total)
-│       ├── figure1_quarterly_article_heatmap.png
-│       ├── forecast_sarima.png
-│       ├── forecast_auto_arima.png
-│       ├── forecast_prophet.png
-│       ├── forecast_ensemble.png
-│       ├── cell7_forecast_comparison.png
-│       └── sarima_diagnostics.png
+│   └── figures/
+│       └── manuscript/                       # All 8 figures from FA_Manuscript-13
+│           ├── fig1_remittance_timeseries_overview.png
+│           ├── fig2_cross_correlation_sentiment_lag.png
+│           ├── fig3_pipeline_architecture.png
+│           ├── fig4_garch_gated_architecture.png
+│           ├── fig5_sarima_table.png
+│           ├── fig6_model_performance_comparison.png
+│           ├── fig7_actual_vs_predicted.png
+│           └── fig8_confidence_fan_chart.png
 │
 ├── data/                                     # Place your Excel input files here
 │   └── .gitkeep
