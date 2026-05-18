@@ -258,20 +258,6 @@ Key dependencies: `statsmodels`, `xgboost`, `arch`, `transformers`, `tensorflow`
 
 ---
 
-## 📝 Citation
-
-If you use this codebase, please cite the associated paper:
-
-```bibtex
-@article{john2026nlpts,
-  title     = {Remittance Flow Forecasting with Multilingual NLP Sentiment Signals and Hybrid ML/DL Models},
-  author    = {John, Joel},
-  journal   = {IEEE Transactions on Industrial Informatics},
-  year      = {2026},
-  note      = {Under review / forthcoming}
-}
-```
-
 ---
 
 ## 📄 License
